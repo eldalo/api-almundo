@@ -4,11 +4,11 @@
 
 En el directorio del proyecto, puede ejecutar:
 
-### `yarn install`
+`yarn install`
 
 Instala las dependencias que necesita la API para su funcionamiento.
 
-### `yarn start`
+`yarn start`
 
 Ejecuta la aplicación en el modo de desarrollo.<br>
 Abre [http://localhost:3001](http://localhost:3001) en el navegador.
