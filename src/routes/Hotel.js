@@ -5,6 +5,6 @@ const router = new express.Router();
 
 const HotelController = require('../controllers/HotelController');
 
-router.get('/hotels', HotelController.index);
+router.get('/api/hotels', HotelController.index);
 
 module.exports = router;
