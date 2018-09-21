@@ -1,17 +1,20 @@
 'use strict'
 
+require('dotenv').config();
+
 const express = require('express');
 const cluster = require('cluster');
 const bodyParser = require('body-parser');
 const config = require('./config/environment');
 
 const Routes = require('./src/routes');
-const Database = require('./src/services/Database');
+const Db = require('./src/services/Db');
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.disable('x-powered-by');
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
 
 // app.use((req, res, next) => {
 //     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -23,15 +26,16 @@ app.use(bodyParser.json());
 // });
 
 function startApp() {
-    Database.init();
+    Db.init();
     Routes.init(app);
 
     app.listen(config.port, () => {
-        console.log(`API RESTful - Listening on port ${config.port}`);
+        console.log(`Server environment: ${config.environment}`)
+        console.log(`API RESTful listening on port http://localhost:${config.port}`);
     });
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (config.environment === 'production') {
     if (cluster.isMaster) {
         cluster.fork();
         cluster.on('exit', (worker, code, signal) => {

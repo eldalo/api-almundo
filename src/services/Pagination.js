@@ -3,7 +3,7 @@
 const divide = require('lodash.divide');
 const _ = require('underscore');
 
-module.exports = (data) => {
+module.exports = function(data) {
     if (_.isUndefined(data.page))
         throw new Error('Param page is required, current page for data.');
 

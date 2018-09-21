@@ -4,7 +4,7 @@ const Mongoose = require('mongoose');
 const config = require('../../config/environment');
 const _ = require('underscore');
 
-class Database {
+class Db {
 
     init() {
         const uri = config.db;
@@ -15,6 +15,9 @@ class Database {
     }
 
     connection(uri, options = {}) {
+        Mongoose.set('useCreateIndex', true);
+        Mongoose.set('useNewUrlParser', true);
+
         return Mongoose.connect(uri, options)
                 .then(() => {
                     console.log(`Mongoose connection to ${uri}`);
@@ -30,4 +33,4 @@ class Database {
     }    
 }
 
-module.export = new Database();
+module.exports = new Db();

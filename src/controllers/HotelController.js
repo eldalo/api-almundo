@@ -19,7 +19,7 @@ class HotelController {
             finder.stars = Number(stars);
 
         const hotels = await Hotel.find(finder).skip(page * limit).limit(limit);
-        const total = await Hotel.count(finder);
+        const total = await Hotel.countDocuments(finder);
 
         return res.json({
             hotels,
