@@ -1,7 +1,7 @@
 {
   "name": "api-almundo",
   "version": "0.0.1",
-  "description": "API RESTfull Almundo",
+  "description": "API RESTful Almundo",
   "private": true,
   "author": "Diego Londoño <dlondonom@gmail.com>",
   "repository": "",

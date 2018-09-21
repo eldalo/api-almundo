@@ -1,7 +1,6 @@
 'use strict'
 
 const divide = require('lodash.divide');
-const _ = require('underscore');
 
 module.exports = function(data) {
     try {
