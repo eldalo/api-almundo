@@ -1,11 +1,21 @@
 'use strict'
 
-const express = require('express');
-const api = express.Router();
-const hotelsController = require('./controllers/hotels');
+const cors = require('cors');
+const HotelRouter = require('./routes/Hotel');
 
-api.get('/hotels', hotelsController.getHotelsAllAction);
-api.get('/hotels/:id', hotelsController.getHotelsByIdAction);
-api.get('/hotels/filter', hotelsController.getHotelFilterAction);
+module.exports = {
+    init: (app) => {
+        app.use(HotelRouter);
+        app.use(cors);
 
-module.exports = api;
+        app.get('/*', notFound);
+        app.post('/*', notFound);
+    }
+}
+
+function notFound(req, res) {
+    return res.status(404).json({
+        error: true,
+        message: 'This API does not exist'
+    });
+}
