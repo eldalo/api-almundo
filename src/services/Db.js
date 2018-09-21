@@ -2,16 +2,15 @@
 
 const Mongoose = require('mongoose');
 const config = require('../../config/environment');
-const _ = require('underscore');
 
 class Db {
 
     init() {
-        const uri = config.db;
-        if (_.isUndefined(uri))
-            throw Error('MongoDB connection URL is required, none given.');
-
-        return this.connection(uri);
+        try {
+            return this.connection(config.db);
+        } catch(err) {
+            console.error(`Error Db: ${err}`);
+        }
     }
 
     connection(uri, options = {}) {

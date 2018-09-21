@@ -4,30 +4,28 @@ const divide = require('lodash.divide');
 const _ = require('underscore');
 
 module.exports = function(data) {
-    if (_.isUndefined(data.page))
-        throw new Error('Param page is required, current page for data.');
+    try {
+        const params = ['page', 'count', 'limit', 'current'];
 
-    if (_.isUndefined(data.count))
-        throw new Error('Param count is required, total items in data');
+        for (let param in params) if (data.hasOwnProperty(param)) {
+            throw new Error(data[param]);
+        }
 
-    if (_.isUndefined(data.limit))
-        throw new Error('Param limit is required, current limit for data.');
+        data.page++;
 
-    if (_.isUndefined(data.current))
-        throw new Error('Param current is required, current length of data.');
+        const lastPage = Math.ceil(divide(data.count, data.limit));
 
-    data.page++;
-
-    const lastPage = Math.ceil(divide(data.count, data.limit));
-
-    return {
-        total: data.count,
-        showing: data.current,
-        page: data.page,
-        per_page: data.limit,
-        first_page: 1,
-        last_page: lastPage,
-        prev_page: (data.page === 1) ? 1 : (data.page -1),
-        next_page: ((data.page + 1) > lastPage) ? data.page : data.page +1
+        return {
+            total: data.count,
+            showing: data.current,
+            page: data.page,
+            per_page: data.limit,
+            first_page: 1,
+            last_page: lastPage,
+            prev_page: (data.page === 1) ? 1 : (data.page - 1),
+            next_page: ((data.page + 1) > lastPage) ? data.page : data.page + 1
+        }
+    } catch (err) {
+        console.error(`Error pagination: ${err}`);
     }
 }

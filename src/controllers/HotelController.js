@@ -5,7 +5,7 @@ const Pagination = require('../services/Pagination');
 
 class HotelController {
 
-    async index(req, res) {
+    async getHotelAll(req, res) {
         let { page, limit, name, stars } = req.query;
         const finder = {};
 
@@ -21,7 +21,7 @@ class HotelController {
         const hotels = await Hotel.find(finder).skip(page * limit).limit(limit);
         const total = await Hotel.countDocuments(finder);
 
-        return res.json({
+        return res.status(200).json({
             hotels,
             paginate: Pagination({
                 page,
@@ -29,8 +29,17 @@ class HotelController {
                 current: hotels.length,
                 count: total
             })
-        })
+        });
+    }
 
+    async getHotelById(req, res) {
+        const id = parseInt(req.params.id);
+        const finder = {};
+
+        finder.id = id;
+
+        const hotels = await Hotel.find(finder);
+        return res.status(200).json({ hotels });
     }
 }
 
