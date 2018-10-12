@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 
+const compression = require('compression');
 const express = require('express');
 const cluster = require('cluster');
 const bodyParser = require('body-parser');
@@ -15,6 +16,7 @@ const app = express();
 app.disable('x-powered-by');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(compression());
 
 function startApp() {
     Db.init();
