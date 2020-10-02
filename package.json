@@ -19,7 +19,7 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "lodash.divide": "^4.9.0",
-    "mongoose": "^5.2.16",
+    "mongoose": "^5.7.5",
     "request": "^2.87.0",
     "underscore": "^1.9.0"
   },
